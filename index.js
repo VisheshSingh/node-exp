@@ -39,7 +39,8 @@ app.post('/api/courses', (req, res) => {
 app.put('/api/courses/:id', (req, res) => {
   const course = courses.find(course => course.id === parseInt(req.params.id));
 
-  if (!course) res.status(404).send('Course with requested id not found 😣');
+  if (!course)
+    return res.status(404).send('Course with requested id not found 😣');
 
   const result = validateCourse(req.body);
 
@@ -57,7 +58,9 @@ app.delete('/api/courses/:id', (req, res) => {
   const course = courses.find(course => course.id === parseInt(req.params.id));
 
   if (!course)
-    res.status(404).send('Course with requested id cannot be deleted! 😣');
+    return res
+      .status(404)
+      .send('Course with requested id cannot be deleted! 😣');
 
   const index = courses.indexOf(course);
   courses.splice(index, 1);
